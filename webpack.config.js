@@ -2,23 +2,36 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './app/index.js',
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/app/assets/'
-  },
-  module: {
-    loaders: [
-      {
-        test: /.jsx?$/,
-        loader: 'babel-loader',
-        include: path.join(__dirname, 'app'),
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react']
-        }
-      }
-    ]
-  }
+	entry: [
+		'webpack-hot-middleware/client',
+		'react-hot-loader/patch',
+       	'./src/index.js',
+    ],
+	output: {
+		filename: 'bundle.js',
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/'
+	},
+	module: {
+		rules: [
+		  {
+		    test: /\.jsx?$/,
+		    include: [path.resolve(__dirname, 'src')],
+		    exclude: [path.resolve(__dirname,"node_modules")],
+		    use: {
+		    	loader: 'babel-loader',
+		    	options: {
+		    		presets: [["env", {"modules":false}],
+		    		"react"],
+ 					plugins: ["react-hot-loader/babel"]
+		    	}
+		    }
+		  }
+		]
+	},
+	devtool: "source-map",
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
+    ],
 };
