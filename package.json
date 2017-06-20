@@ -9,9 +9,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev:start": "webpack --config ./webpack.config.js --display-error-details --progress --colors && node src/server.js",
-    "build": "webpack --config ./webpack.deployment.config.js --progress --colors",
+    "build": "NODE_ENV=production webpack --config ./webpack.deployment.config.js --progress --colors",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --require babel-register test/components/*.js --reporter spec||exit 0",
-    "lint": "node ./node_modules/eslint/bin/eslint.js --ext .js,.jsx src/"
+    "lint": "node ./node_modules/eslint/bin/eslint.js --fix --ext .js,.jsx src/"
   },
   "dependencies": {
     "express": "^4.13.3",

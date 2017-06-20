@@ -6,14 +6,18 @@ var config = require('../webpack.config.js');
 var app = express();
 var compiler = webpack(config);
 
-app.use(require('webpack-dev-middleware')(compiler, {
-	hot: true,
-	stats: {
-		colors: true
-	}
-}));
+const env = process.env.APP_ENV || process.env.NODE_ENV || 'development';
 
-app.use(require('webpack-hot-middleware')(compiler));
+if (env !== 'production') {
+	app.use(require('webpack-dev-middleware')(compiler, {
+		hot: true,
+		stats: {
+			colors: true
+		}
+	}));
+
+	app.use(require('webpack-hot-middleware')(compiler));
+}
 
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
