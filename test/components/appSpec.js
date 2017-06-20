@@ -1,6 +1,6 @@
 import chai from 'chai'
 import React from 'react'
-import App from '../src/containers/app'
+import App from '../../src/components/app.jsx'
 import { shallow } from 'enzyme'
 
 let expect = chai.expect;
