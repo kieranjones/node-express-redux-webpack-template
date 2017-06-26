@@ -4,3 +4,6 @@ npm-debug.log
 
 # compiled folder
 dist
+
+# miscellaneous
+.idea/
